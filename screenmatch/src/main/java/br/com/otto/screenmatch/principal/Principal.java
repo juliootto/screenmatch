@@ -3,6 +3,7 @@ package br.com.otto.screenmatch.principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -61,7 +62,13 @@ public class Principal {
 	    		         .forEach(System.out::println);
 	    		
 	    		//episodios.forEach(e->System.out.println(e.toString()));
-	            System.out.println("");
+	    		
+	    		Map<Integer, Double> avaliacoesPorTemporada = episodios.stream()
+	    															.filter(e -> e.getAvaliacao()>0.0)
+	    				                                              .collect(Collectors.groupingBy(Episodio::getTemporada,
+	    				                                            		                   Collectors.averagingDouble(Episodio::getAvaliacao)
+	    				                                            		                       ));
+	            System.out.println(avaliacoesPorTemporada);
 	            System.out.println("");
 			} while (!nomeSerie.equals("SAIR"));				
 			
